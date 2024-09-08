@@ -13,7 +13,17 @@ import Foundation
 struct Application: Identifiable {
     let id = UUID()
     let company : String
-    let titel : String
+    let title : String
     let status : Status
+    let date : Date
     
+}
+
+class ApplicationManager: ObservableObject {
+    @Published var applications: [Application] = []
+    
+    func addApplication(company: String, title: String, status: Status, date: Date) {
+        let newApplication = Application(company: company, title: title, status: status, date: date)
+        applications.append(newApplication)
+    }
 }
