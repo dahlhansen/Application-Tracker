@@ -9,15 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView{
+            VStack {
+                Text("Hello, world!")
+            }
+            .navigationTitle("")
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Application Tracker")
+                        .font(.headline)
+                        .bold()
+                        .frame(alignment: .center)
+                    }
+                }
+            }
         }
-        .padding()
     }
-}
+
 
 #Preview {
     ContentView()

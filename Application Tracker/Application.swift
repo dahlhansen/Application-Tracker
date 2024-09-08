@@ -6,3 +6,17 @@
 //
 
 import Foundation
+
+
+
+class Application {
+    var company : String
+    var titel : String
+    var status : Status
+    
+    init(company: String, titel: String, status: Status) {
+        self.company = company
+        self.titel = titel
+        self.status = status
+    }
+}

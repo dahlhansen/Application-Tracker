@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+enum Status {
+    case Applied
+    case Interview
+    case AwaitingResponse
+    case Offer
+    case Accepted
+}
