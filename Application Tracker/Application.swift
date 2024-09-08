@@ -8,15 +8,12 @@
 import Foundation
 
 
+//reference: https://www.hackingwithswift.com/books/ios-swiftui/working-with-identifiable-items-in-swiftui
 
-class Application {
-    var company : String
-    var titel : String
-    var status : Status
+struct Application: Identifiable {
+    let id = UUID()
+    let company : String
+    let titel : String
+    let status : Status
     
-    init(company: String, titel: String, status: Status) {
-        self.company = company
-        self.titel = titel
-        self.status = status
-    }
 }
