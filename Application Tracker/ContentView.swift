@@ -8,10 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var applicationManager = ApplicationManager()
+    
     var body: some View {
         NavigationView{
             VStack {
-                Text("Hello, world!")
+                ForEach(applicationManager.applications) { app in
+                    Text(app.title)
+                    
+                }
             }
             .navigationTitle("")
             .toolbar {
@@ -41,6 +46,7 @@ struct AddApplicationScreen: View {
     @State private var title: String = ""
     @State private var status: Status = .Applied
     @State private var date: Date = Date()
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         
@@ -57,8 +63,10 @@ struct AddApplicationScreen: View {
             }
             Button("Add Application") {
                 applicationManager.addApplication(company: company, title: title, status: status, date: date)
+                presentationMode.wrappedValue.dismiss()
             }
             .disabled(company.isEmpty || title.isEmpty)
+            
         }
         .navigationTitle("Add Application")
         .navigationBarBackButtonHidden(true)
@@ -70,4 +78,5 @@ struct AddApplicationScreen: View {
 
 #Preview {
     ContentView()
+        .environmentObject(ApplicationManager())
 }
