@@ -28,7 +28,9 @@ struct ContentView: View {
                     }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     
-                    NavigationLink(destination: AddApplicationScreen()){
+                    NavigationLink(destination: AddApplicationScreen()
+                        .environmentObject(applicationManager)
+                    ){
                         
                     Image(systemName: "plus")
                         .font(.system(size: 18))
