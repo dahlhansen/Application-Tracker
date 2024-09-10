@@ -12,10 +12,25 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView{
-            VStack {
-                ForEach(applicationManager.applications) { app in
-                    Text(app.title)
-                    
+            VStack (alignment: .leading) {
+                
+                ForEach($applicationManager.applications) { $app in
+                    VStack {
+                        Text(app.company)
+                            .font(.headline)
+                        Text(app.title)
+                            .font(.subheadline)
+                        Picker("Status", selection: $app.status) {
+                            Text("Applied").tag(Status.applied)
+                            Text("Interview").tag(Status.interview)
+                            Text("Awaiting Response").tag(Status.awaitingResponse)
+                            Text("Offer").tag(Status.offer)
+                            Text("Accepted").tag(Status.accepted)
+                        }
+                            
+                        Text("Date: \(DateFormatter.localizedString(from: app.date, dateStyle: .long, timeStyle: .none))")
+                        
+                    }
                 }
             }
             .navigationTitle("")
@@ -46,7 +61,7 @@ struct AddApplicationScreen: View {
     @EnvironmentObject var applicationManager: ApplicationManager
     @State private var company: String = ""
     @State private var title: String = ""
-    @State private var status: Status = .Applied
+    @State private var status: Status = .applied
     @State private var date: Date = Date()
     @Environment(\.presentationMode) var presentationMode
     
@@ -57,9 +72,10 @@ struct AddApplicationScreen: View {
                 TextField("Company", text: $company)
                 TextField("Title", text: $title)
                 Picker("Status", selection: $status) {
-                    Text("Applied").tag(Status.Applied)
-                    Text("Interview").tag(Status.Interview)
-                    Text("Offer").tag(Status.Offer)
+                    Text("Applied").tag(Status.applied)
+                    Text("Interview").tag(Status.interview)
+                    Text("Awaiting Response").tag(Status.awaitingResponse)
+                    Text("Offer").tag(Status.offer)
                 }
                 DatePicker("Date", selection: $date, displayedComponents: [.date])
             }

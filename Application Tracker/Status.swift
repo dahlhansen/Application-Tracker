@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum Status {
-    case Applied
-    case Interview
-    case AwaitingResponse
-    case Offer
-    case Accepted
+enum Status: String {
+    case applied = "Applied"
+    case interview = "Interview"
+    case awaitingResponse = "Awaiting Response"
+    case offer = "Offer"
+    case accepted = "Accepted"
 }

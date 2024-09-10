@@ -14,7 +14,7 @@ struct Application: Identifiable {
     let id = UUID()
     let company : String
     let title : String
-    let status : Status
+    var status : Status
     let date : Date
     
 }
