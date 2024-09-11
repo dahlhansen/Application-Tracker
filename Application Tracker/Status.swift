@@ -12,5 +12,4 @@ enum Status: String {
     case interview = "Interview"
     case awaitingResponse = "Awaiting Response"
     case offer = "Offer"
-    case accepted = "Accepted"
 }
