@@ -6,6 +6,15 @@ struct ContentView: View {
     let itemWidthPercentage: CGFloat = 0.9
     let fixedItemWidth: CGFloat = UIScreen.main.bounds.width * 0.9
     
+    let darkBlue = Color(red: 0.0, green: 0.0, blue: 0.55)
+    
+    init(){
+
+        UISegmentedControl.appearance().selectedSegmentTintColor = .white
+        UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.systemMint], for: .selected)
+
+        }
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -20,8 +29,13 @@ struct ContentView: View {
                         VStack (alignment: .leading) {
                             Text(app.company)
                                 .font(.headline)
+                                .foregroundStyle(Color.white)
+                                .bold()
+                                .underline()
                             Text(app.title)
                                 .font(.subheadline)
+                                .bold()
+                                .foregroundStyle(Color.white)
                             Picker("Status", selection: $app.status) {
                                 Text("Applied").tag(Status.applied)
                                 Text("Interview").tag(Status.interview)
@@ -29,10 +43,12 @@ struct ContentView: View {
                                 Text("Offer").tag(Status.offer)
                             }
                             .pickerStyle(SegmentedPickerStyle())
-                            
+                            .accentColor(darkBlue)
                                 
-                            Text("Date: \(DateFormatter.localizedString(from: app.date, dateStyle: .long, timeStyle: .none))")
+                            Text("\(DateFormatter.localizedString(from: app.date, dateStyle: .long, timeStyle: .none))")
                                 .font(.footnote)
+                                .bold()
+                                .foregroundStyle(Color.white)
                         }
                         .padding()
                         .background(Color.mint)
