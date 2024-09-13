@@ -26,4 +26,10 @@ class ApplicationManager: ObservableObject {
         let newApplication = Application(company: company, title: title, status: status, date: date)
         applications.append(newApplication)
     }
+    
+    func deleteApplication(app: Application) {
+            if let index = applications.firstIndex(where: { $0.id == app.id }) {
+                applications.remove(at: index)
+            }
+    }
 }

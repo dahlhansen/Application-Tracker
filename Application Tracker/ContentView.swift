@@ -8,12 +8,10 @@ struct ContentView: View {
     
     let darkBlue = Color(red: 0.0, green: 0.0, blue: 0.55)
     
-    init(){
-
+    init() {
         UISegmentedControl.appearance().selectedSegmentTintColor = .white
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor.systemMint], for: .selected)
-
-        }
+    }
     
     var body: some View {
         NavigationView {
@@ -26,38 +24,48 @@ struct ContentView: View {
                     }
                     
                     ForEach($applicationManager.applications) { $app in
-                        VStack (alignment: .leading) {
-                            Text(app.company)
-                                .font(.headline)
-                                .foregroundStyle(Color.white)
-                                .bold()
-                                .underline()
-                            Text(app.title)
-                                .font(.subheadline)
-                                .bold()
-                                .foregroundStyle(Color.white)
-                            Picker("Status", selection: $app.status) {
-                                Text("Applied").tag(Status.applied)
-                                Text("Interview").tag(Status.interview)
-                                Text("Awaiting Response").tag(Status.awaitingResponse)
-                                Text("Offer").tag(Status.offer)
+                        ZStack(alignment: .topTrailing) {
+                            VStack(alignment: .leading) {
+                                Text(app.company)
+                                    .font(.headline)
+                                    .foregroundStyle(Color.white)
+                                    .bold()
+                                    .underline()
+                                Text(app.title)
+                                    .font(.subheadline)
+                                    .bold()
+                                    .foregroundStyle(Color.white)
+                                Picker("Status", selection: $app.status) {
+                                    Text("Applied").tag(Status.applied)
+                                    Text("Interview").tag(Status.interview)
+                                    Text("Awaiting Response").tag(Status.awaitingResponse)
+                                    Text("Offer").tag(Status.offer)
+                                }
+                                .pickerStyle(SegmentedPickerStyle())
+                                .accentColor(darkBlue)
+                                    
+                                Text("\(DateFormatter.localizedString(from: app.date, dateStyle: .long, timeStyle: .none))")
+                                    .font(.footnote)
+                                    .bold()
+                                    .foregroundStyle(Color.white)
                             }
-                            .pickerStyle(SegmentedPickerStyle())
-                            .accentColor(darkBlue)
-                                
-                            Text("\(DateFormatter.localizedString(from: app.date, dateStyle: .long, timeStyle: .none))")
-                                .font(.footnote)
-                                .bold()
-                                .foregroundStyle(Color.white)
+                            .padding()
+                            .background(Color.mint)
+                            .cornerRadius(16)
+                            .frame(width: fixedItemWidth)
+                            .padding(.horizontal, 8)
+                            .shadow(radius: 2)
+                            
+                            Button(action: {
+                                applicationManager.deleteApplication(app: app)
+                            }) {
+                                Image(systemName: "trash")
+                                    .foregroundColor(.red)
+                                    .padding()
+                            }
                         }
-                        .padding()
-                        .background(Color.mint)
-                        .cornerRadius(16)
-                        .frame(width: fixedItemWidth)
-                        .padding(.horizontal, 8)
-                        .shadow(radius: 2)
+                        .padding(.top)
                     }
-                    .padding(.top)
                 }
             }
             .toolbar {
@@ -108,9 +116,7 @@ struct AddApplicationScreen: View {
             }
             .disabled(company.isEmpty || title.isEmpty)
         }
-        .navigationTitle("Add Application")
         .navigationBarBackButtonHidden(true)
-        
     }
 }
 
